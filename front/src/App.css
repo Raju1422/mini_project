@@ -1,0 +1,13 @@
+.usertable {
+  @apply p-3;
+}
+.usertable th,
+tr {
+  @apply border-gray-900;
+}
+.usertable td {
+  @apply p-3  border-gray-900;
+}
+.scrollb::-webkit-scrollbar {
+  display: none;
+}
