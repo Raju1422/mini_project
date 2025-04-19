@@ -24,19 +24,21 @@ def find_risk_level(cluster, risk_data):
 
 class RiskPredictionConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        # if self.scope["user"].is_authenticated:
+        user = self.scope['user']
+        if user.is_authenticated:
+            print(f"Connected user: {user}")
             await self.accept()
-        # else:
-        #     await self.close()
+        else:
+            print("Connection rejected: Anonymous user")
+            await self.close()
 
     async def disconnect(self, close_code):
         pass
 
     async def receive(self, text_data):
         data = json.loads(text_data)
-        print(data)
         user = self.scope['user']
-        age = 25
+        age = getattr(user, 'age', 25)  
 
         # Create a DataFrame with the provided data
         pd.set_option('display.float_format', lambda x: f'{x:.14f}')

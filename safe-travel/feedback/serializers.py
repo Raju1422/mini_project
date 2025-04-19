@@ -12,12 +12,14 @@ from django.conf import settings
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 vgg_model_path = os.path.join(settings.BASE_DIR, 'feedback', 'vgg16_custom_binary.pth')
 class ReviewSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField(read_only=True)  #
+    user = serializers.SerializerMethodField()
 
     class Meta:
         model = Review
         fields = ['id', 'user', 'review_type', 'description', 'rating', 'created_at']
         read_only_fields = ['user', 'created_at']
+    def get_user(self, obj):
+        return obj.user.username
 
 
 class IncidentImageSerializer(serializers.ModelSerializer):
