@@ -9,14 +9,15 @@ const ReviewPage = () => {
   const [reviews, setReviews] = useState([]);
 
   const API_URL = "http://localhost:8000/api/feedback/reviews/"; // change to your domain
-  // const token = localStorage.getItem("token"); // assuming token is stored in localStorage
+  const token = localStorage.getItem("accessToken");
+  const username = localStorage.getItem("username"); // assuming token is stored in localStorage
 
   const fetchReviews = async () => {
     try {
-      // const res = await axios.get(API_URL, {
-      //   headers: { Authorization: `Bearer ${token}` },
-      // });
-      const res = await axios.get(API_URL);
+      const res = await axios.get(API_URL, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      // const res = await axios.get(API_URL);
       setReviews(res.data);
     } catch (error) {
       console.error("Failed to fetch reviews", error);
@@ -38,14 +39,16 @@ const ReviewPage = () => {
           rating: selectedRating,
           description,
           review_type: reviewType,
+          user: username
         },
-        // {
-        //   headers: {
-        //     Authorization: `Bearer ${token}`,
-        //     "Content-Type": "application/json",
-        //   },
-        // }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
       );
+
       setDescription("");
       setSelectedRating(0);
       fetchReviews(); // refresh list

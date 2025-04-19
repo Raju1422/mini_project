@@ -1,4 +1,4 @@
-const backapi = "http://localhost:2390";
+const backapi = "http://localhost:8000";
 
 const Allapi = {
   signup: {
@@ -10,7 +10,7 @@ const Allapi = {
     method: "post",
   },
   userdet: {
-    url: `${backapi}/api/userdetails`,
+    url: `${backapi}/api/user/details/`,
     method: "get",
   },
   logout: {

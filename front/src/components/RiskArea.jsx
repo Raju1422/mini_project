@@ -12,7 +12,7 @@ import {
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 // import './ReportForm.css';
-
+const token = localStorage.getItem("accessToken");
 const RiskArea = () => {
   const [locationInput, setLocationInput] = useState(""); // Input for location search
   const [location, setLocation] = useState("");
@@ -119,8 +119,9 @@ const RiskArea = () => {
     console.log("points are", points);
     setpoints(points);
   }
+
   const connectToWebSocket = (points) => {
-    const ws = new WebSocket("ws://localhost:8000/ws/predict-risk/");
+    const ws = new WebSocket(`ws://127.0.0.1:8000/ws/predict-risk/?token=${token}`);;
 
     ws.onopen = () => {
       console.log("WebSocket Connection Open");
@@ -280,15 +281,12 @@ const RiskArea = () => {
       const query = `
           [out:json];
           (
-            node["amenity"="shelter"](around:${radius * 1000}, ${
-        coordinates.lat
-      }, ${coordinates.lng});
-            way["amenity"="shelter"](around:${radius * 1000}, ${
-        coordinates.lat
-      }, ${coordinates.lng});
-            relation["amenity"="shelter"](around:${radius * 1000}, ${
-        coordinates.lat
-      }, ${coordinates.lng});
+            node["amenity"="shelter"](around:${radius * 1000}, ${coordinates.lat
+        }, ${coordinates.lng});
+            way["amenity"="shelter"](around:${radius * 1000}, ${coordinates.lat
+        }, ${coordinates.lng});
+            relation["amenity"="shelter"](around:${radius * 1000}, ${coordinates.lat
+        }, ${coordinates.lng});
           );
           out center;
         `;

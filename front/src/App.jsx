@@ -9,34 +9,34 @@ import SOS from "./components/sos";
 import Indication from "./components/Indication";
 
 function App() {
-  const fetchuserdetails = async () => {
-    try {
-      const response = await fetch(Allapi.userdet.url, {
-        method: Allapi.userdet.method,
-        credentials: "include",
-      });
+  // const fetchuserdetails = async () => {
+  //   try {
+  //     const response = await fetch(Allapi.userdet.url, {
+  //       method: Allapi.userdet.method,
+  //       credentials: "include",
+  //     });
 
-      if (!response.ok) {
-        // Handle non-2xx HTTP responses
-        console.error("HTTP error", response.status, response.statusText);
-        return;
-      }
+  //     if (!response.ok) {
+  //       // Handle non-2xx HTTP responses
+  //       console.error("HTTP error", response.status, response.statusText);
+  //       return;
+  //     }
 
-      const current_user = await response.json();
-      console.log("current user is", current_user);
+  //     const current_user = await response.json();
+  //     console.log("current user is", current_user);
 
-      if (current_user.success) {
-        console.log(current_user);
-      } else {
-        console.error("Failed to fetch user details:", current_user.message);
-      }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    }
-  };
-  useEffect(() => {
-    fetchuserdetails();
-  }, []);
+  //     if (current_user.success) {
+  //       console.log(current_user);
+  //     } else {
+  //       console.error("Failed to fetch user details:", current_user.message);
+  //     }
+  //   } catch (error) {
+  //     console.error("Fetch error:", error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   fetchuserdetails();
+  // }, []);
 
   return (
     <>

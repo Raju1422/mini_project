@@ -9,7 +9,7 @@ import {
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import * as turf from "@turf/turf";
-
+const token = localStorage.getItem("accessToken");
 // Custom marker icon
 const customMarkerIcon = new L.Icon({
   iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
@@ -33,7 +33,7 @@ const MovementMap = ({ src, des }) => {
   const [distanceTraveled, setDistanceTraveled] = useState(0);
   const [riskLevels, setRiskLevels] = useState([]);
   const socketRef = useRef(null); // For persistent WebSocket connection
-
+  const token = localStorage.getItem("accessToken");
   // Fetch the route from OSRM
   useEffect(() => {
     const fetchRoute = async () => {
@@ -55,7 +55,7 @@ const MovementMap = ({ src, des }) => {
 
   // Establish WebSocket once
   useEffect(() => {
-    socketRef.current = new WebSocket("ws://localhost:8000/ws/predict-risk/");
+    socketRef.current = new WebSocket(`ws://127.0.0.1:8000/ws/predict-risk/?token=${token}`);
 
     socketRef.current.onopen = () => {
       console.log("WebSocket connection established");

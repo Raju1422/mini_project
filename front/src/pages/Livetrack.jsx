@@ -303,7 +303,7 @@ const Livetrack = () => {
   //   return () => clearInterval(intervalId);
   // };
   let ws = null; // global-like scope within the component
-
+  const token = localStorage.getItem("accessToken");
   const connectToWebSocket = (points) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
       // just send data if already connected
@@ -312,7 +312,7 @@ const Livetrack = () => {
     }
 
     // Establish connection only if not connected
-    ws = new WebSocket("ws://localhost:8000/ws/predict-risk/");
+    ws = new WebSocket(`ws://127.0.0.1:8000/ws/predict-risk/?token=${token}`);
 
     ws.onopen = () => {
       console.log("WebSocket Connected");
